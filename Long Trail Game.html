@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+
+    </style>
+</head>
+<body style="background-color: white;">
+</body>
+
+
+<div id="Steps">Steps: 0</div>
+
+
+
+
+<script>
+    let x = 0;
+    let correctFoot = 0;
+    let leftFoot = document.createElement('button');
+    leftFoot.innerText = 'Left Foot';
+    leftFoot.id='LeftFoot';
+    document.body.appendChild(leftFoot);
+
+    let rightFoot = document.createElement('button');
+    rightFoot.innerText = 'Right Foot';
+    rightFoot.id='RightFoot';
+    document.body.appendChild(rightFoot);
+    
+    document.getElementById('LeftFoot').onclick = function(){
+        if(correctFoot == 0){
+        x++;
+        correctFoot++;
+        document.getElementById("Steps").innerHTML = "Steps: " + x;
+        }else{
+            alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
+        }
+    };
+
+    document.getElementById('RightFoot').onclick = function(){
+        if(correctFoot == 1){
+        x++;
+        document.getElementById("Steps").innerHTML = "Steps: " + x;
+        correctFoot--;
+        }else{
+            alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
+        }
+    };
+
+</script>
