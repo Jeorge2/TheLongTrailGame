@@ -9,12 +9,23 @@
 </body>
 
 
+<canvas id="gameCanvas" width="800" height="600"></canvas>
 <div id="Steps">Steps: 0</div>
 
 
 
 
 <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    var flyx = canvas.width/2;
+    var flyy = canvas.height/2;
+    const flyImage = new Image();
+    flyImage.src = 'fly_alpha.png';
+    flyImage.onload = () => {
+        drawFly();
+    };
+
     let x = 0;
     let correctFoot = 0;
     let leftFoot = document.createElement('button');
@@ -35,6 +46,7 @@
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
         }
+    drawFly();
     };
 
     document.getElementById('RightFoot').onclick = function(){
@@ -45,6 +57,23 @@
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
         }
+    drawFly();
     };
+
+    function drawFly() {
+    // Clear the canvas (important for animation)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(flyImage, flyx, flyy); 
+    updateFlyPos();
+    }
+
+    function updateFlyPos() {
+    flyx = flyx + Math.floor(Math.random()*10)-4;
+    flyy = flyy + Math.floor(Math.random()*10)-4;
+    if (flyx < 0) { flyx = 2 };
+    if (flyx >= canvas.width) { flyx = canvas.width - 2 };
+    if (flyy < 0) { flyy = 2 };
+    if (flyy >= canvas.height) { flyy = canvas.height - 2 };
+    }
 
 </script>
