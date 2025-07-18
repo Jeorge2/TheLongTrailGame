@@ -9,14 +9,15 @@
 </body>
 
 
-<div id="Steps">Steps: 0</div>
-
-
+<div id="Steps" style="font-size: large;text-align: center;">Steps Left: 40</div>
 
 
 <script>
-    let x = 0;
+    let requiredSteps = 40;
+    let stepCount = 0;
     let correctFoot = 0;
+    let startFoot = true;
+    
     let leftFoot = document.createElement('button');
     leftFoot.innerText = 'Left Foot';
     leftFoot.id='LeftFoot';
@@ -26,24 +27,38 @@
     rightFoot.innerText = 'Right Foot';
     rightFoot.id='RightFoot';
     document.body.appendChild(rightFoot);
+
+    document.getElementById("Steps").style.position = 'absolute';
+    document.getElementById("Steps").style.left = '50%';
+    document.getElementById("Steps").style.top = '5%';
     
     document.getElementById('LeftFoot').onclick = function(){
-        if(correctFoot == 0){
-        x++;
-        correctFoot++;
-        document.getElementById("Steps").innerHTML = "Steps: " + x;
+        
+        if(correctFoot == 0||startFoot == false){
+        stepCount++;
+        correctFoot = 1;
+        startFoot = false;
+        document.getElementById("Steps").innerHTML = "Steps Left: " + (requiredSteps - stepCount);
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
+        }
+        if(requiredSteps - stepCount == 0){
+            alert("You actually did it. What a waste of time...")
         }
     };
 
     document.getElementById('RightFoot').onclick = function(){
-        if(correctFoot == 1){
-        x++;
-        document.getElementById("Steps").innerHTML = "Steps: " + x;
-        correctFoot--;
+        if(correctFoot == 1 || startFoot){
+        stepCount++;
+        correctFoot = 0;
+        startFoot = false;
+        document.getElementById("Steps").innerHTML = "Steps Left: " + (requiredSteps - stepCount);
+
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
+        }
+        if(requiredSteps - stepCount == 0){
+            alert("You actually did it. What a waste of time...")
         }
     };
 
