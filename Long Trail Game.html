@@ -5,12 +5,12 @@
 
     </style>
 </head>
-<body style="background-color: white;">
+<body style="background-color: black;">
 </body>
 
 
 <canvas id="gameCanvas" width="800" height="600"></canvas>
-<div id="Steps">Steps: 0</div>
+<div id="Steps" style="font-size: large;text-align: center;color: white;">Steps Left: 40</div>
 
 
 
@@ -26,38 +26,74 @@
         drawFly();
     };
 
-    let x = 0;
+
+
+    let requiredSteps = 40;
+    let stepCount = 0;
+
     let correctFoot = 0;
+    let startFoot = true;
+    
     let leftFoot = document.createElement('button');
     leftFoot.innerText = 'Left Foot';
     leftFoot.id='LeftFoot';
     document.body.appendChild(leftFoot);
+    leftFoot.style.position = 'absolute';
+    leftFoot.style.left = '20%';
+    leftFoot.style.top = '40%';
+    leftFoot.style.fontSize = '60px';
+    leftFoot.style.padding = '32px 16px';
+    leftFoot.style.color = 'white';
+    leftFoot.style.background = 'black';
+    leftFoot.style.borderColor = 'white';
 
     let rightFoot = document.createElement('button');
     rightFoot.innerText = 'Right Foot';
     rightFoot.id='RightFoot';
     document.body.appendChild(rightFoot);
+    rightFoot.style.position = 'absolute';
+    rightFoot.style.left = '50%';
+    rightFoot.style.top = '40%';
+    rightFoot.style.fontSize = '60px';
+    rightFoot.style.padding = '32px 16px';
+    rightFoot.style.color = 'white';
+    rightFoot.style.background = 'black';
+    rightFoot.style.borderColor = 'white';
+
+    document.getElementById("Steps").style.position = 'absolute';
+    document.getElementById("Steps").style.left = '41%';
+    document.getElementById("Steps").style.top = '5%';
     
     document.getElementById('LeftFoot').onclick = function(){
-        if(correctFoot == 0){
-        x++;
-        correctFoot++;
-        document.getElementById("Steps").innerHTML = "Steps: " + x;
+        
+        if(correctFoot == 0||startFoot){
+            stepCount++;
+            correctFoot = 1;
+            startFoot = false;
+            document.getElementById("Steps").innerHTML = "Steps Left: " + (requiredSteps - stepCount);
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
         }
     drawFly();
+        if(requiredSteps - stepCount == 0){
+            alert("You actually did it. What a waste of time...")
+        }
     };
 
     document.getElementById('RightFoot').onclick = function(){
-        if(correctFoot == 1){
-        x++;
-        document.getElementById("Steps").innerHTML = "Steps: " + x;
-        correctFoot--;
+        if(correctFoot == 1 || startFoot){
+        stepCount++;
+        correctFoot = 0;
+        startFoot = false;
+        document.getElementById("Steps").innerHTML = "Steps Left: " + (requiredSteps - stepCount);
+
         }else{
             alert("Have you ever tried stepping with the same foot twice? Doesn't work, does it?");
         }
     drawFly();
+        if(requiredSteps - stepCount == 0){
+            alert("You actually did it. What a waste of time...")
+        }
     };
 
     function drawFly() {
